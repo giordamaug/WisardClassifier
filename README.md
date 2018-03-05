@@ -1,4 +1,4 @@
-# # WisardClassifier
+# WisardClassifier
 Machine learning supervised method for classification using WiSARD<sup>rp</sup>
 
 > Authors: Maurizio Giordano and Massimo De Gregorio
