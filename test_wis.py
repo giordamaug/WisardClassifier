@@ -7,6 +7,7 @@ from scipy.io import arff
 from wis import WisardClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score
 from utilities import *
+import time
 
 # (Try) import matplot for graphics
 try:
@@ -24,7 +25,7 @@ X_train = np.array([list(x) for x in data[meta._attrnames[0:-1]]])
 X_train = X_train.toarray() if sps.issparse(X_train) else X_train  # avoid sparse data
 class_names = np.unique(y_train)
 # IRIS (arff) - cross validation example
-clf = WisardClassifier(nobits=16,bleaching=B_enabled,notics=256,mapping='linear',debug=True,default_bleaching=3)
+clf = WisardClassifier(n_bits=16,bleaching=B_enabled,n_tics=256,mapping='linear',debug=True,default_bleaching=3)
 kf = cross_validation.LeaveOneOut(len(class_names))
 predicted = cross_validation.cross_val_score(clf, X_train, y_train, cv=kf, n_jobs=1)
 print("Accuracy Avg: %.2f" % predicted.mean())
@@ -34,7 +35,7 @@ X_train, y_train = load_svmlight_file(open("datasets/iris.libsvm", "r"))
 class_names = np.unique(y_train)
 X_train = X_train.toarray() if sps.issparse(X_train) else X_train  # avoid sparse data
 # IRIS - cross validation example (with fixed seed)
-clf = WisardClassifier(nobits=16,notics=1024,debug=True,bleaching=B_enabled,seed=848484848)
+clf = WisardClassifier(n_bits=16,n_tics=1024,debug=True,bleaching=B_enabled,random_state=848484848)
 kf = cross_validation.StratifiedKFold(y_train, 10)
 predicted = cross_validation.cross_val_score(clf, X_train, y_train, cv=kf, n_jobs=1, verbose=0)
 print("Accuracy Avg: %.2f" % predicted.mean())
@@ -47,8 +48,11 @@ X_test, y_test = load_svmlight_file(open("datasets/dna.t", "r"))
 X_test = X_test.toarray() if sps.issparse(X_test) else X_test  # avoid sparse data
 
 # DNA (arff) - testing example
-clf = WisardClassifier(nobits=32,notics=512,debug=True,bleaching=B_enabled)
-y_pred = clf.fit(X_train, y_train).predict(X_test)
+clf = WisardClassifier(n_bits=16,n_tics=512,debug=True,bleaching=B_enabled,random_state=848484848,n_jobs=-1)
+y_pred = clf.fit(X_train, y_train)
+tm = time.time()
+y_pred = clf.predict(X_test)
+print("Time: %d"%(time.time()-tm))
 predicted = accuracy_score(y_test, y_pred)
 cm = confusion_matrix(y_test, y_pred)
 print("Accuracy: %.2f" % predicted)
