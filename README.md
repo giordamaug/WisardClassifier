@@ -184,6 +184,7 @@ responses["B"] = classify_discr(wisard["B"],test_tuple);
 print("A responds with score %.2f\n"%responses["A"]);
 print("B responds with score %.2f\n"%responses["B"]);
 ```
+
 ----------------------
 WiSARD in Scikit Learn (Python)
 ----------------------
@@ -259,3 +260,4 @@ if matplotfound:
 else:
     print_confmatrix(cm)
 ```
+
