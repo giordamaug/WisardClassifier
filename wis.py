@@ -18,6 +18,7 @@ import multiprocessing.sharedctypes as mpsh
 import warnings
 
 mypowers = 2**np.arange(32, dtype = np.uint32)[::]
+print mypowers[16]
 
 # UTILITY
 class color:
@@ -345,7 +346,7 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
         self.progress_ = 0.01
         D = pool.map(decide_onebyone_b, jobs_args)
         tm,tme = compTime(time.time()-self.starttm_,self.progress_)
-        self.progress_ = printProgressBar('test ',tm,tme,color.GREEN, color.RED, len(data),self.progress_,len(X))
+        self.progress_ = printProgressBar('test ',tm,tme,color.GREEN, color.RED, len(X),self.progress_,len(X))
         sys.stdout.write('\n')
         return D
 
@@ -357,7 +358,7 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
         self.progress_ = 0.01
         D = pool.map(decide_onebyone_b_noscale, jobs_args)
         tm,tme = compTime(time.time()-self.starttm_,self.progress_)
-        self.progress_ = printProgressBar('test ',tm,tme,color.GREEN, color.RED, len(data),self.progress_,len(X))
+        self.progress_ = printProgressBar('test ',tm,tme,color.GREEN, color.RED, len(X),self.progress_,len(X))
         sys.stdout.write('\n')
         return D
 
@@ -375,7 +376,7 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
         sys.stdout.write('\n')
         return D
 
-    def decision_function_seq_b_debug(self,X):
+    def decision_function_seq_b_debug_noscale(self,X):
         D = np.empty(shape=[0, len(self.classes_)])
         cnt = 0
         self.starttm_ = time.time()
