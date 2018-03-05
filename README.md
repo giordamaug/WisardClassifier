@@ -169,7 +169,6 @@ wisard["B"] = make_discr(2,8,"random",0)
 # train WiSARD
 for s in range(X.shape[0]):
     tuple = mk_tuple(wisard[y[s]],X[s])
-    print(tuple)
     train_discr(wisard[y[s]],tuple)
 
 # print WiSARD state
