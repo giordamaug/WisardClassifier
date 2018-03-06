@@ -9,6 +9,7 @@ project( wisard-cxx_static_3.0 )
 # Compile Library
 set(LIBRARY_NAME wisard-cxx_static_3.0)
 set( CMAKE_LIBRARY_OUTPUT_DIRECTORY .. )
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ..)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_library(${LIBRARY_NAME} SHARED wisard.cpp)
 get_target_property(sf ${LIBRARY_NAME} IMPORT_SUFFIX)
