@@ -1,0 +1,322 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WisardClassifier’s documentation &#8212; WisardClassifier beta documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     'beta',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">WisardClassifier beta documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="wisardclassifier-s-documentation">
+<h1>WisardClassifier’s documentation<a class="headerlink" href="#wisardclassifier-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="wis.WisardClassifier">
+<em class="property">class </em><code class="descclassname">wis.</code><code class="descname">WisardClassifier</code><span class="sig-paren">(</span><em>n_bits=8</em>, <em>n_tics=256</em>, <em>mapping='random'</em>, <em>debug=False</em>, <em>bleaching=True</em>, <em>default_bleaching=1</em>, <em>confidence_bleaching=0.01</em>, <em>n_jobs=1</em>, <em>random_state=0</em><span class="sig-paren">)</span><a class="headerlink" href="#wis.WisardClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wisard Classifier.</p>
+<p>This model uses the WiSARD weightless neural network.
+WiSARD stands for “Wilkie, Stonham, Aleksander Recognition Device”.
+It is a weightless neural network model to recognize binary patterns.
+For a introduction to WiSARD, please read a brief introduction to
+weightless neural network (<a class="reference external" href="https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2009-6.pdf">https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2009-6.pdf</a>)</p>
+<dl class="docutils">
+<dt>n_bits <span class="classifier-delimiter">:</span> <span class="classifier">int, optional, default 8</span></dt>
+<dd>number of bits used in n-tuple extraction from input (network resolution),
+should be in [1, 32]</dd>
+<dt>n_tics <span class="classifier-delimiter">:</span> <span class="classifier">int, optional, default 256</span></dt>
+<dd>datum sclaling factor (e.g. max discretization value)
+high values slow down system perfromance</dd>
+<dt>mapping <span class="classifier-delimiter">:</span> <span class="classifier">{‘linear’, ‘random’}, optional, default ‘random’</span></dt>
+<dd>input to neurons mapping</dd>
+<dt>bleaching <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional, default True</span></dt>
+<dd>enable bleaching algorithm to solve classification ties</dd>
+<dt>default_bleaching <span class="classifier-delimiter">:</span> <span class="classifier">integer, optional, default 1</span></dt>
+<dd>bleaching variable step</dd>
+<dt>confidence_bleaching <span class="classifier-delimiter">:</span> <span class="classifier">floar, optional, default 0.01</span></dt>
+<dd>bleaching confidence tie paramater,
+should be in range ]1, 0]</dd>
+<dt>n_jobs <span class="classifier-delimiter">:</span> <span class="classifier">integer, optional (default=1)</span></dt>
+<dd>The number of jobs to run in parallel for both <cite>fit</cite> and <cite>predict</cite>.
+If -1, then the number of jobs is set to the number of cores.
+random_state : int, or 0, optional, default None
+If int, random_state is the seed used by the random number generator;
+If 0, the random number generator is the RandomState instance used</dd>
+<dt>by <cite>np.random</cite>.</dt>
+<dd>debug : bool, optional, default True
+enable debugging</dd>
+</dl>
+<dl class="docutils">
+<dt><a href="#id2"><span class="problematic" id="id3">wiznet_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">dictionary</span></dt>
+<dd>The set of WiSARD discriminators (one for each class)</dd>
+<dt><a href="#id4"><span class="problematic" id="id5">nrams_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of RAMs in each discriminato</dd>
+<dt><a href="#id6"><span class="problematic" id="id7">nclasses_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of classes</dd>
+<dt><a href="#id8"><span class="problematic" id="id9">nfeatures_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of features (variable) in the datum</dd>
+<dt><a href="#id10"><span class="problematic" id="id11">ranges_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">array of shape = [<a href="#id12"><span class="problematic" id="id13">nfeatures_</span></a>]</span></dt>
+<dd>The range of features (variables) in the datum</dd>
+<dt><a href="#id14"><span class="problematic" id="id15">offsets_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">array of shape = [<a href="#id16"><span class="problematic" id="id17">nfeatures_</span></a>]</span></dt>
+<dd>The offsets of features (variables) in the datum</dd>
+<dt><a href="#id18"><span class="problematic" id="id19">classes_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">array of shape = [<a href="#id20"><span class="problematic" id="id21">nclasses_</span></a>]</span></dt>
+<dd>The set of classes</dd>
+<dt><a href="#id22"><span class="problematic" id="id23">npixels_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>The number of pixels in input binarized</dd>
+<dt><a href="#id24"><span class="problematic" id="id25">progress_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Progress bar monitoring step, default 0.0</dd>
+<dt><a href="#id26"><span class="problematic" id="id27">starttm_</span></a> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd>Progress bar monitoring time starter</dd>
+</dl>
+<p>Here you find a simple example of using WisardClassifier in Python.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">wis</span> <span class="k">import</span> <span class="n">WisardClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">make_classification</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">WisardClassifier</span><span class="p">(</span><span class="n">n_bits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_tics</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">train |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100 %  00:00:00 00:00:00</span>
+<span class="go">WisardClassifier(bleaching=True, confidence_bleaching=0.01, debug=True,</span>
+<span class="go">default_bleaching=1, mapping=&#39;random&#39;, n_bits=4, n_jobs=1,</span>
+<span class="go">n_tics=128, random_state=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span>
+<span class="go">[1]</span>
+</pre></div>
+</div>
+<p>The default values for the parameters controlling the number of bits (‘’n_bits’‘)
+and the datum scaling range (‘’n_btics’‘) are set in order to have an averaged
+high accuracy on several classification problems.
+By using parallel computation you only affect classification stage. Model fitting does not
+exploit multcore yet.
+To obtain a deterministic behaviour during
+fitting, <code class="docutils literal"><span class="pre">random_state</span></code> has to be fixed.
+For more information, please read .. [1]</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>M. De Gregorio, and M. Giordano.
+“The WiSARD classifier”, ESANN 2016 - 24th European Symposium on Artificial Neural Networks, 2016.</td></tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="wis.WisardClassifier.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#wis.WisardClassifier.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit the WiSARD model to data matrix X and target(s) y.</p>
+<p>X : array-like or sparse matrix, shape (n_samples, n_features)
+The input data.
+y : array-like, shape (n_samples,) or (n_samples, n_outputs)
+The target values (class labels in classification, real numbers in
+regression).</p>
+<p>self : returns a trained WiSARD model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="wis.WisardClassifier.get_params">
+<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=True</em><span class="sig-paren">)</span><a class="headerlink" href="#wis.WisardClassifier.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<dl class="docutils">
+<dt>deep <span class="classifier-delimiter">:</span> <span class="classifier">boolean, optional</span></dt>
+<dd>If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</dd>
+</dl>
+<dl class="docutils">
+<dt>params <span class="classifier-delimiter">:</span> <span class="classifier">mapping of string to any</span></dt>
+<dd>Parameter names mapped to their values.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="wis.WisardClassifier.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#wis.WisardClassifier.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict using the WiSARD model.</p>
+<dl class="docutils">
+<dt>X <span class="classifier-delimiter">:</span> <span class="classifier">{array-like, sparse matrix}, shape (n_samples, n_features)</span></dt>
+<dd>The input data.</dd>
+</dl>
+<dl class="docutils">
+<dt>y <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape (n_samples, n_outputs)</span></dt>
+<dd>The predicted values.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="wis.WisardClassifier.set_params">
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>**parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#wis.WisardClassifier.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.
+The method works on simple estimators as well as on nested objects
+(such as pipelines). The latter have parameters of the form
+<code class="docutils literal"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s possible to update each
+component of a nested object.</p>
+<p>self : returns the WiSARD model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="wisardclassifier-s-usage-in-scikit-learn">
+<h1>WisardClassifier’s usage in scikit learn<a class="headerlink" href="#wisardclassifier-s-usage-in-scikit-learn" title="Permalink to this headline">¶</a></h1>
+<p>The following is an exampleof usage of WisardClassifier in the Scikit Learn
+library.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># import sklearn and scipy stuff</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_svmlight_file</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="kn">as</span> <span class="nn">sps</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">arff</span>
+<span class="c1"># import wisard classifier library</span>
+<span class="kn">from</span> <span class="nn">wis</span> <span class="kn">import</span> <span class="n">WisardClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># (Try) import matplot for graphics</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+    <span class="n">matplotfound</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">matplotfound</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">pass</span>
+
+<span class="n">B_enabled</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="c1"># IRIS (arff) - load datasets</span>
+<span class="n">data</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">loadarff</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;datasets/iris.arff&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">meta</span><span class="o">.</span><span class="n">_attrnames</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]])</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">if</span> <span class="n">sps</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="k">else</span> <span class="n">X_train</span>  <span class="c1"># avoid sparse data</span>
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+<span class="c1"># IRIS (arff) - cross validation example</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">WisardClassifier</span><span class="p">(</span><span class="n">n_bits</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span><span class="n">bleaching</span><span class="o">=</span><span class="n">B_enabled</span><span class="p">,</span><span class="n">n_tics</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span><span class="n">mapping</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">default_bleaching</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">LeaveOneOut</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">))</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Accuracy Avg: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">predicted</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="c1"># IRIS (libsvm) - load datasets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">load_svmlight_file</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;datasets/iris.libsvm&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">if</span> <span class="n">sps</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="k">else</span> <span class="n">X_train</span>  <span class="c1"># avoid sparse data</span>
+<span class="c1"># IRIS - cross validation example (with fixed seed)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">WisardClassifier</span><span class="p">(</span><span class="n">n_bits</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span><span class="n">n_tics</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">bleaching</span><span class="o">=</span><span class="n">B_enabled</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">848484848</span><span class="p">)</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Accuracy Avg: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">predicted</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="c1"># DNA (libsvm) - load datasets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">load_svmlight_file</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;datasets/dna.tr&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">if</span> <span class="n">sps</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span> <span class="k">else</span> <span class="n">X_train</span>  <span class="c1"># avoid sparse data</span>
+<span class="n">class_names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">load_svmlight_file</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;datasets/dna.t&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span> <span class="k">if</span> <span class="n">sps</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="k">else</span> <span class="n">X_test</span>  <span class="c1"># avoid sparse data</span>
+
+<span class="c1"># DNA (arff) - testing example</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">WisardClassifier</span><span class="p">(</span><span class="n">n_bits</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span><span class="n">n_tics</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">bleaching</span><span class="o">=</span><span class="n">B_enabled</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">848484848</span><span class="p">,</span><span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">tm</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Time: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tm</span><span class="p">))</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Accuracy: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">predicted</span><span class="p">)</span>
+
+<span class="c1"># DNA - plot (print) confusion matrix</span>
+<span class="k">if</span> <span class="n">matplotfound</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Confusion matrix&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">print_confmatrix</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">WisardClassifier’s documentation</a></li>
+<li><a class="reference internal" href="#wisardclassifier-s-usage-in-scikit-learn">WisardClassifier’s usage in scikit learn</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">WisardClassifier beta documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Maurizio Giordano.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+  </body>
+</html>

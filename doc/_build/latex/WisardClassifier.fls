@@ -1,0 +1,21 @@
+PWD /Users/maurizio/Google Drive/WisardClassifier/doc/_build/latex
+INPUT /opt/local/etc/texmf/texmf.cnf
+INPUT /opt/local/var/db/texmf/web2c/pdftex/pdflatex.fmt
+INPUT WisardClassifier.tex
+OUTPUT WisardClassifier.log
+INPUT sphinxmanual.cls
+INPUT sphinxmanual.cls
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/report.cls
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/report.cls
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/size10.clo
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/size10.clo
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/inputenc.sty
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/inputenc.sty
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/utf8.def
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/utf8.def
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/t1enc.dfu
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/t1enc.dfu
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/ot1enc.dfu
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/ot1enc.dfu
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/omsenc.dfu
+INPUT /opt/local/share/texmf-texlive/tex/latex/base/omsenc.dfu
