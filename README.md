@@ -1,5 +1,5 @@
 # WisardClassifier
-Machine learning supervised method for classification using WiSARD<sup>rp</sup>
+Machine learning supervised method for classification using WiSARD
 
 > Authors: Maurizio Giordano and Massimo De Gregorio
 > - Istituto di Calcolo e Reti ad Alte Prestazioni (ICAR) - Consiglio Nazionale delle Ricerche (CNR) (Italy)
@@ -38,6 +38,12 @@ $ make
 
 This will produce the WiSARD library object <code>libwisard-cxx_static_3.0.dllext</code> in the 
 same folder. In addition, a sample C++ program using the library is also compiled for testing (see next section).
+
+-------------------------
+WiSARD API Documentation
+-------------------------
+
+You find WisardClassifier documentation, API reference and examples in the <code>doc</code> folder.
 
 ----------------------
 WiSARD in C++
