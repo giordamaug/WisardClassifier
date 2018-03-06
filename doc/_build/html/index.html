@@ -114,7 +114,7 @@ enable debugging</dd>
 <span class="go">WisardClassifier(bleaching=True, confidence_bleaching=0.01, debug=True,</span>
 <span class="go">default_bleaching=1, mapping=&#39;random&#39;, n_bits=4, n_jobs=1,</span>
 <span class="go">n_tics=128, random_state=0)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
 <span class="go">[1]</span>
 </pre></div>
 </div>
@@ -192,16 +192,19 @@ component of a nested object.</p>
 <h1>WisardClassifier’s usage in scikit learn<a class="headerlink" href="#wisardclassifier-s-usage-in-scikit-learn" title="Permalink to this headline">¶</a></h1>
 <p>The following is an exampleof usage of WisardClassifier in the Scikit Learn
 library.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># import sklearn and scipy stuff</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#import numpy library</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c1"># import sklearn and scipy stuff</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_svmlight_file</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
 <span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="kn">as</span> <span class="nn">sps</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">arff</span>
 <span class="c1"># import wisard classifier library</span>
 <span class="kn">from</span> <span class="nn">wis</span> <span class="kn">import</span> <span class="n">WisardClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">utilities</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="c1">#import utilities for matplot</span>
+<span class="kn">from</span>  <span class="nn">utilities</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="c1"># (Try) import matplot for graphics</span>
 <span class="k">try</span><span class="p">:</span>
