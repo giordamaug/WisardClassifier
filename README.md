@@ -30,7 +30,7 @@ To run the code the following libraries are required:
 
 3. C++ Compiler (tested only with GCC 5.x or later versions)
 
-```
+```bash
 $ cd wislib
 $ cmake .
 $ make
@@ -134,9 +134,13 @@ To use WiSARD in your Python scripts you need to have
 python 2.7 (or later) installed on your system, plus the following
 modules:
 
-1. Numpy
+1. Numpy (http://www.numpy.org)
 
-2. Ctools
+2. Ctools (http://cta.irap.omp.eu/ctools/) 
+
+3. matplotlib (optional) (https://matplotlib.org)
+
+Please refer to the documentation of these packages for installation.
 
 Once you have set the python programming framework, you can use the file <code>test.py</code> simple
 script to start using WiSARD.
@@ -194,6 +198,14 @@ print("B responds with score %.2f\n"%responses["B"]);
 -------------------------
 WiSARD in Scikit Learn
 -------------------------
+
+To use WiSARD in Scikit Learn Python library you need the following packages:
+
+1. Scipy (https://www.scipy.org)
+
+2. Scikit Learn (http://scikit-learn.org)
+
+Please refer to the documentation of these packages for installation.
 
 Hereafter we report a Python script <code>test_wis.py</code> as an example of usage of WisardClassifier within the Scikit-Learn
 machine learning programming framework. For a more complete example, see file <code>test.py</code>.
