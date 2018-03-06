@@ -8,6 +8,7 @@
 from ctypes import *
 import numpy as np
 import os
+import os.path
 import random
 import platform
 if platform.system() == 'Linux':
@@ -19,8 +20,9 @@ elif platform.system() == 'Darwin':
 else:
     raise Error("Unsupported Platform")
 
-libpath = "wislib/libwisard-cxx_static_3.0" + suffix
-wizl = CDLL(os.path.join(os.environ['PWD'], libpath))
+dll_name = "libwisard-cxx_static_3.0" + suffix
+dllabspath = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + dll_name
+wizl = CDLL(dllabspath)
 
 """ Mapping data structure """
 
