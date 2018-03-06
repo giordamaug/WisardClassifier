@@ -36,7 +36,7 @@ $ cmake .
 $ make
 ```
 
-This will produce the WiSARD library object <code>libwisard-cxx_static_3.0.<dllext></code> in the 
+This will produce the WiSARD library object <code>libwisard-cxx_static_3.0.dllext</code> in the 
 same folder. In addition, a sample C++ program using the library is also compiled for testing (see next section).
 
 ----------------------
