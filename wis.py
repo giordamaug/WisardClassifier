@@ -18,7 +18,6 @@ import multiprocessing.sharedctypes as mpsh
 import warnings
 
 mypowers = 2**np.arange(32, dtype = np.uint32)[::]
-print mypowers[16]
 
 # UTILITY
 class color:
@@ -140,16 +139,123 @@ def calc_confidence(results):
 
 # CLASSIFIER API
 class WisardClassifier(BaseEstimator, ClassifierMixin):
-    """Wisard Classifier."""
+    """Wisard Classifier.
+        
+        This model uses the WiSARD weightless neural network.
+        WiSARD stands for "Wilkie, Stonham, Aleksander Recognition Device".
+        It is a weightless neural network model to recognize binary patterns.
+        For a introduction to WiSARD, please read a brief introduction to
+        weightless neural network (https://www.elen.ucl.ac.be/Proceedings/esann/esannpdf/es2009-6.pdf)
+        
+        Parameters
+        ----------
+        n_bits : int, optional, default 8
+            number of bits used in n-tuple extraction from input (network resolution),
+            should be in [1, 32]
+            
+        n_tics : int, optional, default 256
+            datum sclaling factor (e.g. max discretization value)
+            high values slow down system perfromance
+            
+        mapping : {'linear', 'random'}, optional, default 'random'
+            input to neurons mapping
+            
+        bleaching : bool, optional, default True
+            enable bleaching algorithm to solve classification ties
+            
+        default_bleaching : integer, optional, default 1
+            bleaching variable step
+            
+        confidence_bleaching : floar, optional, default 0.01
+            bleaching confidence tie paramater,
+            should be in range ]1, 0]
+            
+        n_jobs : integer, optional (default=1)
+            The number of jobs to run in parallel for both `fit` and `predict`.
+            If -1, then the number of jobs is set to the number of cores.
+            random_state : int, or 0, optional, default None
+            If int, random_state is the seed used by the random number generator;
+            If 0, the random number generator is the RandomState instance used
+            
+        by `np.random`.
+            debug : bool, optional, default True
+            enable debugging
+        
+        Attributes
+        ----------
+        wiznet_ : dictionary
+            The set of WiSARD discriminators (one for each class)
+        
+        nrams_  : int
+            The number of RAMs in each discriminato
+        
+        nclasses_ : int
+            The number of classes
+        
+        nfeatures_ : int
+            The number of features (variable) in the datum
+        
+        ranges_ : array of shape = [nfeatures_]
+            The range of features (variables) in the datum
+        
+        offsets_ : array of shape = [nfeatures_]
+            The offsets of features (variables) in the datum
+        
+        classes_ : array of shape = [nclasses_]
+            The set of classes
+        
+        npixels_ : int
+            The number of pixels in input binarized
+        
+        progress_ : float
+            Progress bar monitoring step, default 0.0
+        
+        starttm_ : int
+            Progress bar monitoring time starter
+        
+        Examples
+        --------
+        
+        Here you find a simple example of using WisardClassifier in Python.
+        
+        >>> from wis import WisardClassifier
+        >>> from sklearn.datasets import make_classification
+        >>>
+        >>> X, y = make_classification(n_samples=1000, n_features=4,
+        ...                            n_informative=2, n_redundant=0,
+        ...                            random_state=0, shuffle=False)
+        >>> clf = WisardClassifier(n_bits=4, n_tics=128, debug=True, random_state=0)
+        >>> clf.fit(X, y)
+        train |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100 %  00:00:00 00:00:00
+        WisardClassifier(bleaching=True, confidence_bleaching=0.01, debug=True,
+        default_bleaching=1, mapping='random', n_bits=4, n_jobs=1,
+        n_tics=128, random_state=0)
+        >>> print(clf.predict([[0, 0, 0, 0]]))
+        [1]
+        
+        Notes
+        -----
+        The default values for the parameters controlling the number of bits (''n_bits'')
+        and the datum scaling range (''n_btics'') are set in order to have an averaged
+        high accuracy on several classification problems.
+        By using parallel computation you only affect classification stage. Model fitting does not
+        exploit multcore yet.
+        To obtain a deterministic behaviour during
+        fitting, ``random_state`` has to be fixed.
+        For more information, please read .. [1]
+        
+        References
+        ----------
+        .. [1] M. De Gregorio, and M. Giordano.
+            "The WiSARD classifier", ESANN 2016 - 24th European Symposium on Artificial Neural Networks, 2016.
+        
+        """
     wiznet_ = {}
-    sharedArray = {}
-    results_ = []
     nrams_ = 0
     nloc_ = 0
-    ranges_ = []
-    offsets_ = []
-    classes_ = []
-    rowcounter_ = 0
+    ranges_ = None
+    offsets_ = None
+    classes_ = None
     progress_ = 0.0
     starttm_ = 0
     def __init__(self,n_bits=8,n_tics=256,mapping='random',debug=False,bleaching=True,default_bleaching=1,confidence_bleaching=0.01,n_jobs=1,random_state=0):
@@ -394,6 +500,20 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
         None
 
     def fit(self, X, y):
+        """Fit the WiSARD model to data matrix X and target(s) y.
+            
+            Parameters
+            ----------
+            X : array-like or sparse matrix, shape (n_samples, n_features)
+            The input data.
+            y : array-like, shape (n_samples,) or (n_samples, n_outputs)
+            The target values (class labels in classification, real numbers in
+            regression).
+            
+            Returns
+            -------
+            self : returns a trained WiSARD model.
+            """
         self.classes_, y = np.unique(y, return_inverse=True)
         self.nclasses_ = len(self.classes_)
         self.size_, self.nfeatures_ = X.shape
@@ -436,6 +556,19 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
                     return self.train_seq(X, y)
     
     def predict(self, X):
+        """Predict using the WiSARD model.
+            
+            Parameters
+            ----------
+            X : {array-like, sparse matrix}, shape (n_samples, n_features)
+                The input data.
+            
+            Returns
+            -------
+            y : array-like, shape (n_samples, n_outputs)
+                The predicted values.
+            """
+
         if self.scaled:
             if self.parallel:
                 if self.debug:
@@ -485,11 +618,33 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
         return self.classes_[np.argmax(D, axis=1)]
     
     def get_params(self, deep=True):
-        # suppose this estimator has parameters "alpha" and "recursive"
+        """Get parameters for this estimator.
+            
+            Parameters
+            ----------
+            deep : boolean, optional
+                If True, will return the parameters for this estimator and
+                contained subobjects that are estimators.
+            
+            Returns
+            -------
+            params : mapping of string to any
+                Parameter names mapped to their values.
+            """
         return {"n_bits": self.nobits, "n_tics": self.notics, "mapping": self.mapping, "debug": self.debug, "bleaching": self.bleaching,
             "default_bleaching": self.b_def, "confidence_bleaching": self.conf_def, "random_state": self.seed, "n_jobs": self.njobs}
 
     def set_params(self, **parameters):
+        """Set the parameters of this estimator.
+            The method works on simple estimators as well as on nested objects
+            (such as pipelines). The latter have parameters of the form
+            ``<component>__<parameter>`` so that it's possible to update each
+            component of a nested object.
+            
+            Returns
+            -------
+            self : returns the WiSARD model.
+            """
         for parameter, value in parameters.items():
             setattr(self, parameter, value)
         return self
