@@ -186,7 +186,7 @@ print("B responds with score %.2f\n"%responses["B"]);
 ```
 
 ----------------------
-WiSARD in Python
+WiSARD in Scikit Learn
 ----------------------
 
 Hereafter we report a Python script <code>test_wis.py</code> as an example of usage of WisardClassifier within the Scikit-Learn
