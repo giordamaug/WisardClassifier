@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1520327969 "WisardClassifier.tex" "WisardClassifier.pdf" "WisardClassifier" 1520327969
+["pdflatex"] 1520333571 "WisardClassifier.tex" "WisardClassifier.pdf" "WisardClassifier" 1520333573
   "/opt/local/etc/texmf/texmf.cnf" 1500030071 30504 c0dabd44851c866683fab5e9bf8464dd ""
   "/opt/local/share/texmf-texlive/tex/latex/base/inputenc.sty" 1467165121 4732 d63eda807ac82cca2ca8488efd31a966 ""
   "/opt/local/share/texmf-texlive/tex/latex/base/omsenc.dfu" 1493155083 2004 ac51aeac484f08c01026120d62677eca ""
@@ -9,10 +9,10 @@
   "/opt/local/share/texmf-texlive/tex/latex/base/t1enc.dfu" 1493155084 11255 9d97362866549d3d3c994b5f28d1b9b5 ""
   "/opt/local/share/texmf-texlive/tex/latex/base/utf8.def" 1493155084 7784 325a2a09984cb5c4ff230f9867145ad3 ""
   "/opt/local/var/db/texmf/web2c/pdftex/pdflatex.fmt" 1506352886 723151 ca8e7d3428eabbab8051c5ae1daa9b1a ""
-  "WisardClassifier.aux" 1520327969 8 a94a2480d3289e625eea47cd1b285758 ""
-  "WisardClassifier.tex" 1520327968 10674 c6976f0308b64bc5bcddcd53810caa7c ""
+  "WisardClassifier.aux" 1520331597 1550 c19b9324406e1a35e4265af8bf537dff ""
+  "WisardClassifier.tex" 1520333571 20769 858ce24b7c03fab9270524f79d08e72e ""
   "cmap.sty" 0 -1 0 ""
-  "sphinxmanual.cls" 1515122701 3589 0b0aac49c6f36925cf5f9d524a75a978 ""
+  "sphinxmanual.cls" 1520331597 3589 0b0aac49c6f36925cf5f9d524a75a978 ""
   (generated)
-  "WisardClassifier.log"
   "WisardClassifier.pdf"
+  "WisardClassifier.log"
