@@ -1,13 +1,16 @@
+#import numpy library
+import numpy as np
 # import sklearn and scipy stuff
 from sklearn.datasets import load_svmlight_file
 from sklearn import cross_validation
+from sklearn.metrics import confusion_matrix, accuracy_score
 import scipy.sparse as sps
 from scipy.io import arff
 # import wisard classifier library
 from wis import WisardClassifier
-from sklearn.metrics import confusion_matrix, accuracy_score
-from utilities import *
 import time
+#import utilities for matplot
+from  utilities import *
 
 # (Try) import matplot for graphics
 try:
