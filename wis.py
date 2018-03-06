@@ -230,7 +230,7 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
         WisardClassifier(bleaching=True, confidence_bleaching=0.01, debug=True,
         default_bleaching=1, mapping='random', n_bits=4, n_jobs=1,
         n_tics=128, random_state=0)
-        >>> print(clf.predict([[0, 0, 0, 0]]))
+        >>> print(clf.predict(np.array([[0, 0, 0, 0]], dtype=np.float64))
         [1]
         
         Notes
