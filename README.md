@@ -132,7 +132,7 @@ modules:
 
 2. Ctools
 
-Once you have set the python programming framework, you can use the file <code>test.py</cose> simple
+Once you have set the python programming framework, you can use the file <code>test.py</code> simple
 script to start using WiSARD.
 
 ```python
@@ -192,7 +192,7 @@ WiSARD in Scikit Learn
 Hereafter we report a Python script <code>test_wis.py</code> as an example of usage of WisardClassifier within the Scikit-Learn
 machine learning programming framework. For a more complete example, see file <code>test.py</code>.
 
-```
+```python
 # import sklearn and scipy stuff
 from sklearn.datasets import load_svmlight_file
 from sklearn import cross_validation
