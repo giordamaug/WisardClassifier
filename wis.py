@@ -18,7 +18,6 @@ import multiprocessing.sharedctypes as mpsh
 import warnings
 
 mypowers = 2**np.arange(32, dtype = np.uint32)[::]
-
 # UTILITY
 class color:
     PURPLE = '\033[95m'
@@ -61,7 +60,6 @@ def compTime(deltatime,progress):
     tm = "{:0>2}:{:0>2}:{:02.0f}".format(int(hours),int(minutes),seconds)
     tme = "{:0>2}:{:0>2}:{:02.0f}".format(int(hourse),int(minutese),secondse)
     return tm,tme
-
 
 def decide_onebyone((clf,data)):
     return [classify_libsvm(clf.wiznet_[cl],clf.map_,clf.nrams_,clf.nobits,clf.notics,clf.nfeatures_,data,clf.ranges_,clf.offsets_) for cl in clf.classes_]
@@ -174,8 +172,8 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
             The number of jobs to run in parallel for both `fit` and `predict`.
             If -1, then the number of jobs is set to the number of cores.
             random_state : int, or 0, optional, default None
-            If int, random_state is the seed used by the random number generator;
-            If 0, the random number generator is the RandomState instance used
+            If int, it is the number of paralle jobs;
+            If 1, no parallel jonbs (sequential execution);
             
         by `np.random`.
             debug : bool, optional, default True
@@ -259,8 +257,8 @@ class WisardClassifier(BaseEstimator, ClassifierMixin):
     progress_ = 0.0
     starttm_ = 0
     def __init__(self,n_bits=8,n_tics=256,mapping='random',debug=False,bleaching=True,default_bleaching=1,confidence_bleaching=0.01,n_jobs=1,random_state=0):
-        if (not isinstance(n_bits, int) or n_bits<1 or n_bits>32):
-            raise Exception('number of bits must be an integer between 1 and 64')
+        if (not isinstance(n_bits, int) or n_bits<1 or n_bits>31):
+            raise Exception('number of bits must be an integer between 1 and 31')
         if (not isinstance(n_tics, int) or n_tics<1):
             raise Exception('number of bits must be an integer greater than 1')
         if (not isinstance(bleaching, bool)):
