@@ -14,7 +14,7 @@
 #include <iostream>
 #include <stdexcept>
 
-extern unsigned long int mypowers[];
+extern unsigned int mypowers[];
 using namespace std;
 
 extern "C"  //Tells the compile to use C-linkage for the next scope.
@@ -79,7 +79,7 @@ extern "C"  //Tells the compile to use C-linkage for the next scope.
         discr_t *p = (discr_t *)malloc(sizeof(discr_t));
         int **maps;
         p->n_bit = n_bit;
-        p->n_loc = mypowers[n_bit];
+        p->n_loc = (unsigned int)mypowers[n_bit];
         p->size = size;
         p->tcounter = 0;
         p->mi = (float *)malloc(size * sizeof(float));
@@ -135,20 +135,22 @@ extern "C"  //Tells the compile to use C-linkage for the next scope.
      */
     void train_libsvm(float **rams, unsigned int *map, int n_ram, int n_bit, int n_tics, int n_feature, double *data, double *den, double *off) {
         int neuron, i;
-        int address;
+        unsigned int address;
         int x, index, npixels=n_tics * n_feature, value;
         for (neuron=0;neuron<n_ram;neuron++) {
             // compute neuron simulus
-            address=(unsigned int)0;
+            address=0;
             // decompose record data values into wisard input
             for (i=0;i<n_bit;i++) {
                 x = map[((neuron * n_bit) + i) % npixels];
                 index = x/n_tics;
                 value = (int) ((data[index] - off[index]) * n_tics / den[index]);
                 if ((x % n_tics) < value) {
-                    address |= mypowers[n_bit -1 - i];
+                    address |= (unsigned int)mypowers[n_bit -1 - i];
+                    
                 }
             }
+            //printf("RAM[%d,%d]\n", neuron,address);
             rams[neuron][address] += 1.0;
         }
     }
@@ -164,7 +166,7 @@ extern "C"  //Tells the compile to use C-linkage for the next scope.
      */
     void train_libsvm_noscale(float **rams, unsigned int *map, int n_ram, int n_bit, int n_tics, int n_feature, double *data) {
         int neuron, i;
-        int address;
+        unsigned int address;
         int x, index, npixels=n_tics * n_feature, value;
         for (neuron=0;neuron<n_ram;neuron++) {
             address=(unsigned int)0;            // compute neuron simulus
@@ -174,7 +176,7 @@ extern "C"  //Tells the compile to use C-linkage for the next scope.
                 index = x/n_tics;
                 value = (int) (data[index] * n_tics);
                 if ((x % n_tics) < value) {
-                    address |= mypowers[n_bit -1 - i];
+                    address |= (unsigned int)mypowers[n_bit -1 - i];
                 }
             }
             rams[neuron][address] += 1.0;
