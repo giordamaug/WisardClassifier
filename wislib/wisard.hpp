@@ -19,11 +19,9 @@ extern "C"  //Tells the compile to use C-linkage for the next scope.
     
 #define BUFSIZE 1024
 #define ceiling(X) (X-(int)(X) > 0 ? (int)(X+1) : (int)(X))
-    unsigned long int mypowers[64] = {
-        1UL, 2UL, 4UL, 8UL, 16UL, 32UL, 64UL, 128UL, 256UL, 512UL, 1024UL, 2048UL, 4096UL, 8192UL, 16384UL, 32768UL, 65536UL, 131072UL , 262144UL, 524288UL,
-        1048576UL, 2097152UL, 4194304UL, 8388608UL, 16777216UL, 33554432UL, 67108864UL, 134217728UL, 268435456UL, 536870912UL, 1073741824UL, 2147483648UL,
-        4294967296UL, 8589934592UL, 17179869184UL, 34359738368UL, 68719476736UL, 137438953472UL, 274877906944UL, 549755813888UL, 1099511627776UL, 2199023255552UL, 4398046511104UL, 8796093022208UL, 17592186044416UL, 35184372088832UL, 70368744177664UL, 140737488355328UL, 281474976710656UL, 562949953421312UL, 1125899906842624UL, 2251799813685248UL, 4503599627370496UL, 9007199254740992UL, 18014398509481984UL, 36028797018963968UL, 72057594037927936UL, 144115188075855872UL, 288230376151711744UL, 576460752303423488UL, 1152921504606846976UL, 2305843009213693952UL, 4611686018427387904UL, 9223372036854775808UL
-    };
+    unsigned int mypowers[32] = {
+        1U, 2U, 4U, 8U, 16U, 32U, 64U, 128U, 256U, 512U, 1024U, 2048U, 4096U, 8192U, 16384U, 32768U, 65536U, 131072U , 262144U, 524288U,
+        1048576U, 2097152U, 4194304U, 8388608U, 16777216U, 33554432U, 67108864U, 134217728U, 268435456U, 536870912U, 1073741824U, 2147483648U };
     
     /// discriminator data structure
     /**
@@ -32,7 +30,7 @@ extern "C"  //Tells the compile to use C-linkage for the next scope.
     typedef struct {
         int n_ram;          /**< number of rams for the discriminator */
         int n_bit;          /**< number of bits (resolution) */
-        int n_loc;          /**< number of location in each ram (minus 1) */
+        unsigned int n_loc;          /**< number of location in each ram (minus 1) */
         int size;           /**< size of input binary image */
         unsigned long int tcounter;  /**< train counter */
         float **rams;       /**< the ram list of disciminator */
